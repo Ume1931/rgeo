@@ -211,9 +211,9 @@ module RGeo
             elsif type == Line
               nfactory.line(cast(obj.start_point, nfactory, opts), cast(obj.end_point, nfactory, opts))
             elsif type == LinearRing
-              nfactory.linear_ring(obj.points.map { |p| cast(p, nfactory, opts) })
+              nfactory.linear_ring(obj.points.chunk{|x| x}.map(&:first).map { |p| cast(p, nfactory, opts) })
             elsif type == LineString
-              nfactory.line_string(obj.points.map { |p| cast(p, nfactory, opts) })
+              nfactory.line_string(obj.points.chunk{|x| x}.map(&:first).map { |p| cast(p, nfactory, opts) })
             elsif type == Polygon
               nfactory.polygon(cast(obj.exterior_ring, nfactory, opts),
                                 obj.interior_rings.map { |r| cast(r, nfactory, opts) })
